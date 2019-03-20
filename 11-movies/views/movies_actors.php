@@ -1,12 +1,28 @@
 <?php
 
-require_once __DIR__ . '/header.php'; ?>
+require_once __DIR__ . '/header.php';
+
+$movieManager = new Manager\MovieManager();
+$movies = $movieManager->findAll();
+
+$actorManager = new Manager\ActorManager();
+$actors = $actorManager->findAll();
+
+?>
 
 <h1>Ajouter un acteur dans un film</h1>
 
 <form method="post">
-    <select name="movie" id="movie"></select>
-    <select name="actor" id="actor"></select>
+    <select name="movie" id="movie" class="form-control">
+        <?php foreach ($movies as $movie) { ?>
+            <option value="<?= $movie->id ?>"><?= $movie->title ?></option>
+        <?php } ?>
+    </select>
+    <select name="actor" id="actor" class="form-control">
+        <?php foreach ($actors as $actor) { ?>
+            <option value="<?= $actor->getId() ?>"><?= $actor->getFullName() ?></option>
+        <?php } ?>
+    </select>
     <button class="btn btn-primary btn-block">Ajouter</button>
 </form>
 
